@@ -5,17 +5,23 @@ import json
 print("Добро пожаловать в конвертер JSON-CSV")
 print("Этот волшебный скрипт умеет преобразовывать файл формата JSON в формат CSV")
 print("Какой файл вы хотите преобразовать?")
-filename = input("Имя файла: ")
-extension = filename.split(".")[-1].lower()
-f = open(filename)
+try:
+   filename = input("Имя файла: ")
+   extension = filename.split(".")[-1].lower()
+   f = open(filename)
+except FileNotFoundError as error:
+    print('Файл не найден!!!')
+    quit()
+
 if extension == "json":
     with open(filename) as json_file:
-         data = json.load(json_file)
-         keys = []
+           data = json.load(json_file)
+           keys = []
     for i in range(0,len(data)):
       for j in data[i]:
          if j not in keys:
             keys.append(j)
+
 converted = []
 converted.append(keys)
 for i in range(0,len(data)):
